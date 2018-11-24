@@ -116,3 +116,5 @@ gapminder_by_words %>%
 
 # makefile2dot
 - In this assignment I used makefile2dot to make the pipe line easy to understand
+The output is like this:
+![](./images/out.png)
