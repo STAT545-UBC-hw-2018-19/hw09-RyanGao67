@@ -1,8 +1,6 @@
-install.packages("tidyverse")
 library(tidyverse)
-words <- readLines("words.txt")
+words <- readLines("./data/words.txt")
 knitr::opts_chunk$set(echo = TRUE)
-install.packages("stringr")
 library(stringr)
 a = paste("This_", letters, sep="")
 
@@ -18,10 +16,10 @@ for(i in letters){
 
 alphabetTable <- data.frame(letters,orig)
 
-Alphabetable = ggplot(alphabetTable, aes(x = letters, y = alphabetCount)) +
-  geom_bar(fill = "#0073C2FF", stat = "identity") +
+Alphabetable = ggplot(alphabetTable, aes(x = letters, y = orig)) +
+  geom_bar(fill = "pink", stat = "identity") +
   xlab("Letters") + 
   ylab("Number of Words") + 
   ggtitle("Number of Words End with Each Letter of the Alphabet")
 
-ggsave("./images/reorder_by_fct.png", plot = Alphabetable, device = "png")
+ggsave("./images/endWith.png", plot = Alphabetable, device = "png")

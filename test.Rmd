@@ -1,0 +1,159 @@
+---
+title: "Untitled"
+author: "Tian Gao"
+date: "2018/11/22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+install.packages("stringr")
+library(stringr)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r}
+# load libraries
+suppressPackageStartupMessages(library(tidyverse))
+
+# read TSV
+gapminder <- read.table(file = './data/gapminder.tsv', sep = '\t', header = TRUE)
+
+# read words.txt
+words <- readLines("./data/words.txt") %>% 
+	as.data.frame() 
+names(words) <- c("Words")
+
+
+a = words[words$Words,]
+a
+b = vector()
+for(i in a){
+	if(nchar(i)>=6){
+		b = c(b,i)
+	}
+}
+b
+
+words %>%
+	filter(Words.Length>=10)
+words
+a = words %>%
+	select(Words)%>%
+	filter(str_detect(Words, "ada"))
+names(a) <- c("A")
+a$A
+gapminder
+# select countires in words.txt
+filter(gapminder,startWith(country,"C"))
+
+gapminder_by_words <- gapminder %>% 
+	print(country)
+	filter(startsWith(country,"C")) %>% 
+	# group by country
+	group_by(country) %>% 
+	# calcuate maximum population for each country
+	summarise(
+		max_pop = max(pop)
+	)
+words
+gapminder_by_words
+# save modified dataframe as RDS
+saveRDS(gapminder_by_words, "./data/gapminder_by_words.rds")
+```
+
+```{r}
+
+a  = words[words$Words, ]
+a
+b = vector()
+j = 0
+for(i in a){
+	#if(j==100000)break;j=j+1;
+	if(nchar(i)>15){
+		b = c(b,i)
+	}
+}
+b
+
+gapminder_by_words <- gapminder %>% 
+	filter(country %in% b) %>% 
+	# group by country
+	group_by(country) %>% 
+	# calcuate maximum population for each country
+	summarise(
+		max_pop = max(pop)
+	)
+
+gapminder_by_words
+words$Words.Length
+a
+subset(words, Words=="^C")
+words[nchar(Words) > 35]
+
+for(i in a){
+	print(i)
+}
+```
+
+```{r}
+x1 <- c("Foobar", "bla bla", "something", "another", "blu", "brown",
+        "blau blüht der Enzian")# non-ASCII
+x2 <- cbind(
+      startsWith(x1, "b"),
+      startsWith(x1, "bl"),
+      startsWith(x1, "bla"),
+        endsWith(x1, "n"),
+        endsWith(x1, "an"))
+rownames(x2) <- x1; colnames(x2) <- c("b", "b1", "bla", "n", "an")
+x2
+```
+```{r}
+library(tidyverse)
+words <- readLines("words.txt")
+a = paste("This_", letters, sep="")
+
+
+orig = vector()
+
+for(i in letters){
+	patternn = paste(i,"$",sep="")
+	print(patternn)
+	print(length(str_subset(words, pattern = patternn)))
+	orig = c(orig, length(str_subset(words, patternn)))
+}
+
+alphabetTable <- data.frame(letters,orig)
+
+Alphabetable = ggplot(alphabetTable, aes(x = letters, y = orig)) +
+  geom_bar(fill = "#0073C2FF", stat = "identity") +
+  xlab("Letters") + 
+  ylab("Number of Words") + 
+  ggtitle("Number of Words End with Each Letter of the Alphabet")
+
+Alphabetable
+saveRDS(Alphabetable, "./data/gapminder_by_words.rds")
+
++ 
+  theme_pubclean()
+
+```
