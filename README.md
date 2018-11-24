@@ -103,8 +103,3 @@ gapminder_by_words %>%
 - In this assignment I also used python script to download and read files
 - The first python file is [getGapminder.py](./getGapminder.py)
 - The second python file is [getWords.py](./getWords.py)
-
-# makefile2dot
-- In this assignment I used makefile2dot to make the pipe line easy to understand
-The output is like this:
-![](./images/out.png)
