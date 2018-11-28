@@ -16,8 +16,6 @@ plot <- gapminder_by_words %>%
 	# add title
 	labs(title = "Maximum GDP percap of countries with name length shorter than 5") +
 	
-	# change theme
-	theme_bw()
 
 # save image
 ggsave("./images/maxGDP.png", plot = plot, device = "png")
